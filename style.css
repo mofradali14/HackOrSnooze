@@ -67,8 +67,6 @@ nav {
 	flex-direction: column;
 	align-self: center;
 	background-color: #e7e7e2ad;
-	border-bottom-left-radius: 30px;
-	border-bottom-right-radius: 30px;
 }
 
 form {
