@@ -246,3 +246,14 @@ small {
 #logout:hover {
 	color: rgb(150, 5, 5);
 }
+
+#alert {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	color: white;
+	background-color: red;
+	font-size: 20px;
+}

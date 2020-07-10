@@ -1,33 +1,31 @@
 $(async function() {
 	// cache some selectors we'll be using quite a bit
 	const $allStoriesList = $('#all-articles-list');
-	const $submitForm = $('#submit-form'); // +++ form element to submit story
+	const $submitForm = $('#submit-form');
 	const $filteredArticles = $('#filtered-articles');
 	const $loginForm = $('#login-form');
 	const $createAccountForm = $('#create-account-form');
-	const $ownStories = $('#my-articles'); // +++ ul element for holding user's posted stories
+	const $ownStories = $('#my-articles');
 	const $navLogin = $('#nav-login');
 	const $navLogOut = $('#nav-logout');
-	const $body = $('body'); // +++ page body element
-	const $alert = $('#alert'); // +++ authentication alert box
-	const $navWelcome = $('#nav-welcome'); // +++ span element parent to usernam a element
-	const $mainNavLinks = $('.main-nav-links'); // +++ navbar links for authenticated users
-	const $navSubmit = $('#nav-submit'); // +++ navbar submit link (a element) for authenticated users
-	const $navFavorites = $('#nav-favorites'); // +++ navbar favorites link (a element) for authenticated users
-	const $navMyStories = $('#nav-my-stories'); // +++ navbar my stories link (a element) for authenticated users
-	const $articlesContainer = $('.articles-container'); // +++ main container for articles
-	const $navUserProfile = $('#nav-user-profile'); // +++ authenticated username, link to user profile
-	const $userProfile = $('#user-profile'); // +++ section element displaying user profile details
-	const $favoritedStories = $('#favorited-articles'); // +++ ul element to append user's favorited stories
+	const $body = $('body');
+	const $alert = $('#alert');
+	const $navWelcome = $('#nav-welcome');
+	const $mainNavLinks = $('.main-nav-links');
+	const $navSubmit = $('#nav-submit');
+	const $navFavorites = $('#nav-favorites');
+	const $navMyStories = $('#nav-my-stories');
+	const $articlesContainer = $('.articles-container');
+	const $navUserProfile = $('#nav-user-profile');
+	const $userProfile = $('#user-profile');
+	const $favoritedStories = $('#favorited-articles');
 
-	// global storyList and currentUser variables
 	let storyList = null;
 	let currentUser = null;
 
 	await checkIfLoggedIn();
 
-	// Event listener for logging in - If successfully we will setup the user instance
-	// +++ form displayed after 'login/create user' click
+	// Login event handler
 	$loginForm.on('submit', async function(e) {
 		e.preventDefault();
 
@@ -155,7 +153,7 @@ $(async function() {
 
 	// Event Handler for Navigation to homepage
 	$body.on('click', '#nav-all', async () => {
-		hideElements(); // call hideElements func to hide other page elements
+		hideElements();
 		await generateStories();
 		$allStoriesList.show();
 	});
@@ -256,7 +254,7 @@ $(async function() {
 		} else {
 			trash = '';
 		}
-		const storyMarkup = $(`
+		const storyHTML = $(`
       <li id="${story.storyId}">
       ${trash}
         <span class="star">
@@ -271,7 +269,7 @@ $(async function() {
       </li>
     `);
 
-		return storyMarkup; // return the storyMarkup
+		return storyHTML;
 	}
 
 	// create list of favorites
@@ -279,10 +277,8 @@ $(async function() {
 		$favoritedStories.empty();
 
 		if (currentUser.favorites.length === 0) {
-			// display message if currentUser's favorites array empty
 			$favoritedStories.append(`<p>${currentUser.username} has no favorites...</p>`);
 		} else {
-			// else, loop over currentUser's favs array, call generateStoryHTML for each story fav item
 			for (let story of currentUser.favorites) {
 				let favoriteHTML = generateStoryHTML(story, false, true);
 				$favoritedStories.append(favoriteHTML);
@@ -295,10 +291,8 @@ $(async function() {
 		$ownStories.empty();
 
 		if (currentUser.ownStories.length === 0) {
-			// if user's ownStories array is empty, display message
 			$ownStories.append(`<p>${currentUser.username} has no stories...</p>`);
 		} else {
-			// else, loop over ownStories array, call generateStoryHTML, append to page
 			for (let story of currentUser.ownStories) {
 				let ownStoryHTML = generateStoryHTML(story, true);
 				$ownStories.append(ownStoryHTML);
@@ -326,8 +320,8 @@ $(async function() {
 	// display logged in users navbar
 	function showNavForLoggedInUser() {
 		$navLogin.hide();
-		$userProfile.hide(); // +++ hide the user profile info section
-		$('.main-nav-links, #user-profile').toggleClass('hidden'); // +++ toggleClass to display authenticated user nav links
+		$userProfile.hide();
+		$('.main-nav-links, #user-profile').toggleClass('hidden');
 		$navWelcome.show();
 		$navLogOut.show();
 	}
