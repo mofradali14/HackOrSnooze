@@ -152,6 +152,10 @@ form > hr {
 	color: gold;
 }
 
+.star .far:hover {
+	color: gold;
+}
+
 .star,
 .trash-can,
 .pencil {
